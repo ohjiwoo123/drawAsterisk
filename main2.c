@@ -12,14 +12,14 @@
 #define BOWTIE 6
 
 void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
-void drawTopSide(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
-void drawDownSide(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
+void drawTopSidePyramid(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
+void drawDownsidePyramid(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
 void drawSpacebar();
 void drawLetter();
 
 int topBottomFlag = 1;
 int exitFlag = 1;
-int downSideLineCount = 1;
+int downPyramidLineCount = 1;
 
 int main()
 {
@@ -34,13 +34,12 @@ int main()
 
     printf("가장 긴 길이를 입력하시오\n");
     scanf("%d",&input);
-    if(input < 3)
+    if (input < 2)
     {
-	printf("3보다 작은 값을 입력하였습니다.\n");
-	printf("프로그램을 종료합니다..\n");
+	printf("2보다 작은 값을 입력하였습니다\n");
+	printf("프로그램을 종료합니다\n");
 	return 0;
     }
-
     halfLineNumber = (double)input/(double)2.0;
     //printf("half : %f\n",halfLineNumber);
     halfLineNumber = ceil(halfLineNumber);
@@ -75,12 +74,12 @@ void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFi
 {
 	if(topBottomFlag==1)
 	{
-		drawTopSide(halfLineNumber,lineCount,expression,chooseFigure);
+		drawTopSidePyramid(halfLineNumber,lineCount,expression,chooseFigure);
 	}
 	else
 	{
-		drawDownSide(halfLineNumber,downSideLineCount,expression,chooseFigure);
-		downSideLineCount++;
+		drawDownsidePyramid(halfLineNumber,downPyramidLineCount,expression,chooseFigure);
+		downPyramidLineCount++;
 	}
 	lineCount = lineCount+1;
 	if(exitFlag == 0)
@@ -91,7 +90,7 @@ void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFi
 }
 
 // 위쪽 피라미드
-void drawTopSide(int halfLineNumber,int lineCount, char* expression, int chooseFigure)
+void drawTopSidePyramid(int halfLineNumber,int lineCount, char* expression, int chooseFigure)
 {
 	if(lineCount==halfLineNumber)
 	{
@@ -139,22 +138,32 @@ void drawTopSide(int halfLineNumber,int lineCount, char* expression, int chooseF
 		}
 
 		// 중간 공백, 점진적으로 줄어든다
-		for(int startLine=0;startLine<halfLineNumber*2 - (lineCount+1)*2;startLine++)
+		for(int startLine=1;startLine<halfLineNumber*2 -(lineCount+1)*2;startLine++)
 		{
 			drawSpacebar();
 		}
 
-		// 우측 별, 점진적으로 늘어난다
-		for(int startLine=0;startLine<lineCount+1;startLine++)
+		if((lineCount+1)!=halfLineNumber)
 		{
-			drawLetter(expression);
+			// 우측 별, 점진적으로 늘어난다
+			for(int startLine=0;startLine<lineCount+1;startLine++)
+			{
+				drawLetter(expression);
+			}
+		}
+		else
+		{
+			for(int startLine=1; startLine<lineCount+1;startLine++)
+			{
+				drawLetter(expression);
+			}
 		}
 	}
 	printf("\n");
 }
 
-// 아래쪽 부분
-void drawDownSide(int halfLineNumber,int lineCount, char* expression, int chooseFigure)
+// 아래쪽 피라미드
+void drawDownsidePyramid(int halfLineNumber,int lineCount, char* expression, int chooseFigure)
 {
 	if(lineCount==halfLineNumber)
 	{
@@ -199,7 +208,7 @@ void drawDownSide(int halfLineNumber,int lineCount, char* expression, int choose
                 }
 
                 // 중간 공백, 점진적으로 늘어든다
-                for(int startLine=0; startLine<lineCount*2;startLine++)
+                for(int startLine=1; startLine<lineCount*2;startLine++)
                 {
 			drawSpacebar();
                 }

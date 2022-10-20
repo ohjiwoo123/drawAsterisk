@@ -8,6 +8,8 @@
 void drawFigure(int num, int i);
 void drawTopSidePyramid(int num, int i);
 void drawDownsidePyramid(int num, int i);
+void drawSpaceBar();
+void drawLetter();
 
 int flag = 1;
 int count = 1;
@@ -18,7 +20,7 @@ int main()
 {
     int input;
     int chooseLetter;
-    int chooseFigule;
+    int chooseFigure;
 
     //printf("나비 넥타이를 그릴지, 모레 시계를 그릴지 선택하시오.\n");
     printf("마름모를 그릴지 모레 시계를 그릴지 선택하시오\n");
@@ -50,7 +52,6 @@ int main()
     }
 
     drawFigure(input,0);
-    sleep(1);
     return 0;
 }
 
