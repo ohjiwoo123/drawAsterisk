@@ -31,6 +31,7 @@ int main()
 	int input;
 	int chooseLetter;
 	int chooseFigure;
+	int lineCount = 0;
 
 	// 가장 긴 변의 길이의 중간 값, 기준점이 된다.
 	// 기준점을 기준으로 ----기준점---- 양방향의 길이가 같다.
@@ -72,7 +73,7 @@ int main()
         	    break;
 	}
 
-    	drawFigure((int)halfLineNumber,0,expression,chooseFigure,topBottomFlag);
+    	drawFigure((int)halfLineNumber,lineCount,expression,chooseFigure,topBottomFlag);
     	return 0;
 }
 
@@ -131,19 +132,19 @@ void drawRhombus(int halfLineNumber,int lineCount, char* expression, int chooseF
 	if(topBottomFlag == TOP)
 	{
 	        // 공백은 점진적으로 줄어들게 만든다
-	        for(int start=0;start < halfLineNumber-lineCount-1;start++)
+	        for(int start=0;start < halfLineNumber-lineCount;start++)
 	        {
 	            drawSpacebar();
 	        }
 	        // 별은 점진적으로 늘어나게 만든다 && 홀수개로 늘어난다
-	        for(int start=0; start<lineCount*2+1;start++)
+	        for(int start=0; start<lineCount*2-1;start++)
 	        {
 	            drawLetter(expression);
 	        }
 	}
 	else if(topBottomFlag == BOTTOM)
 	{
-	    // 공백은 점진적으로 늘어나게 만든다
+	    // 공백은 점진                                                                                                                                                                                                                           적으로 늘어나게 만든다
 	    for(int start=0;start<lineCount;start++)
 	    {
 	        drawSpacebar();
@@ -161,15 +162,19 @@ void drawRhombus(int halfLineNumber,int lineCount, char* expression, int chooseF
 // 모래시계
 void drawSandglass(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag)
 {
+	int countSpacebar = 0;
+
 	if(topBottomFlag == TOP)
 	{
 	        // 공백은 점진적으로 늘어난다
-		for(int start=0; start<lineCount;start++)
+		for(int start=0; start<lineCount-1;start++)
 		{
 			drawSpacebar();
+			countSpacebar = countSpacebar + 1;
 		}
 		// 별은 점진적으로 줄어든다 && 홀수개로 줄어든다
-		for(int start=1; start <= ((halfLineNumber*2)-(lineCount*2+1)); start++)
+		//for(int start=0; start < ((halfLineNumber*2)-(lineCount*2+1)); start++)
+		for(int start=0; start < ((halfLineNumber*2)-(countSpacebar*2+1)); start++)
 		{
 			drawLetter(expression);
 		}
@@ -177,12 +182,12 @@ void drawSandglass(int halfLineNumber,int lineCount, char* expression, int choos
 	else if(topBottomFlag == BOTTOM)
 	{
 	        // 공백은 점진적으로 줄어든다
-		for(int start=1;start<halfLineNumber-lineCount;start++)
+		for(int start=0;start<halfLineNumber-lineCount-1;start++)
 		{
 			drawSpacebar();
 		}
 		// 별은 점진적으로 늘어난다 && 홀수개로 늘어난다
-		for(int start=1;start<=lineCount*2+1;start++)
+		for(int start=0;start<lineCount*2+1;start++)
 		{
 			drawLetter(expression);
 		}
@@ -194,16 +199,19 @@ void drawSandglass(int halfLineNumber,int lineCount, char* expression, int choos
 // 나비넥타이
 void drawBowtie(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag)
 {
+	int countLetter = 0;
 	if(topBottomFlag == TOP)
 	{
         	// 좌측 별, 점진적으로 늘어난다
-		for(int start=0;start<lineCount+1;start++)
+		for(int start=0;start<lineCount;start++)
 		{
 			drawLetter(expression);
+			countLetter = countLetter + 1;
 		}
 
 		// 중간 공백, 점진적으로 줄어든다
-		for(int start=1;start<halfLineNumber*2 -(lineCount+1)*2;start++)
+		//for(int start=1;start<halfLineNumber*2 -(lineCount+1)*2;start++)
+		for(int start=0;start<halfLineNumber*2 - countLetter*2 -1;start++)
 		{
 			drawSpacebar();
 		}
@@ -212,7 +220,7 @@ void drawBowtie(int halfLineNumber,int lineCount, char* expression, int chooseFi
 		if((lineCount+1)!=halfLineNumber)
 		{
 			// 우측 별, 점진적으로 늘어난다
-			for(int start=0;start<lineCount+1;start++)
+			for(int start=0;start<countLetter;start++)
 			{
 				drawLetter(expression);
 			}
@@ -221,7 +229,7 @@ void drawBowtie(int halfLineNumber,int lineCount, char* expression, int chooseFi
 		{
         		// 우측 별, 점진적으로 늘어난다
         		// start을 1부터 시작함으로서 별 하나를 덜 그린다
-			for(int start=1; start<lineCount+1;start++)
+			for(int start=0; start<countLetter-1;start++)
 			{
 				drawLetter(expression);
 			}
@@ -236,7 +244,7 @@ void drawBowtie(int halfLineNumber,int lineCount, char* expression, int chooseFi
 	        }
 
 	        // 중간 공백, 점진적으로 늘어든다
-	        for(int start=1; start<lineCount*2;start++)
+	        for(int start=0; start<lineCount*2-1;start++)
 	        {
        			drawSpacebar();
  		}

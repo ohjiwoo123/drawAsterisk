@@ -56,16 +56,16 @@ int main()
     	scanf("%d",&chooseLetter);
     	switch(chooseLetter)
     	{
-    		case ASTERISK:
-    	        	expression = '*';
-    	        	break;
-    	    	case CIRCLE:
-    	        	expression = 'o';
-    	        	break;
-    	    	case LETTER_A:
-    	        	expression = 'a';
-    	        	break;
-       		case LETTER_C:
+    	    case ASTERISK:
+    	        expression = '*';
+    	        break;
+    	    case CIRCLE:
+    	        expression = 'o';
+    	        break;
+    	    case LETTER_A:
+    	        expression = 'a';
+    	        break;
+        	case LETTER_C:
         	    expression = 'c';
         	    break;
         	default:

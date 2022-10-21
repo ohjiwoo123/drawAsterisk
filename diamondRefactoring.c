@@ -11,13 +11,10 @@
 #define SANDGLASS 5
 #define BOWTIE 6
 
-#define TOP 7
-#define BOTTOM 8
-
-void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag);
-void drawRhombus(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag);
-void drawSandglass(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag);
-void drawBowtie(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag);
+void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
+void drawRhombus(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
+void drawSandglass(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
+void drawBowtie(int halfLineNumber,int lineCount, char* expression, int chooseFigure);
 
 void drawSpacebar();
 void drawLetter(char* expression);
@@ -26,7 +23,6 @@ int exitFlag = 1;
 
 int main()
 {
-	int topBottomFlag = 7;  // top = 7, bottom = 8
 	char expression;
 	int input;
 	int chooseLetter;
@@ -34,12 +30,11 @@ int main()
 
 	// 가장 긴 변의 길이의 중간 값, 기준점이 된다.
 	// 기준점을 기준으로 ----기준점---- 양방향의 길이가 같다.
-	double halfLineNumber;
 	printf("마름모를 그릴지 모레 시계를 나비넥타이를 그릴지 선택하시오\n");
 	printf("4번 = 마름모, 5번 = 모래 시계, 6번 = 나비넥타이\n");
 	scanf("%d",&chooseFigure);
 
-	printf("가장 긴 길이를 입력하시오\n");
+	printf("가장 긴 변의 길이를 입력하시오\n");
 	scanf("%d",&input);
 	if (input < 2)
 	{
@@ -47,9 +42,6 @@ int main()
 	        printf("프로그램을 종료합니다\n");
         	return 0;
     	}
-    	halfLineNumber = (double)input/(double)2.0;
-    	// 모든 값을 올림하여 계산 ex) input 11, halfLineNumber = 5.5, 올림 후 halfLineNumber = 6
-    	halfLineNumber = ceil(halfLineNumber);
 
     	printf("표시 문자를 선택하세요\n");
     	printf("0번 = '*' 1번 = 'o' 2번 'a' 3번 = 'c'\n");
@@ -72,11 +64,11 @@ int main()
         	    break;
 	}
 
-    	drawFigure((int)halfLineNumber,0,expression,chooseFigure,topBottomFlag);
+    	drawFigure(input,0,expression,chooseFigure);
     	return 0;
 }
 
-void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag)
+void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFigure)
 {
  	if(lineCount==halfLineNumber && topBottomFlag == TOP)
 	{
@@ -93,13 +85,13 @@ void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFi
     	switch(chooseFigure)
     	{
         	case RHOMBUS:
-        		drawRhombus(halfLineNumber,lineCount,expression,chooseFigure, topBottomFlag);
+        		drawRhombus(halfLineNumber,lineCount,expression,chooseFigure);
         		break;
         	case SANDGLASS:
-            		drawSandglass(halfLineNumber,lineCount,expression,chooseFigure, topBottomFlag);
+            		drawSandglass(halfLineNumber,lineCount,expression,chooseFigure);
         		break;
         	case BOWTIE:
-        		drawBowtie(halfLineNumber,lineCount,expression,chooseFigure, topBottomFlag);
+        		drawBowtie(halfLineNumber,lineCount,expression,chooseFigure);
         		break;
         	default:
         		break;
@@ -110,7 +102,7 @@ void drawFigure(int halfLineNumber,int lineCount, char* expression, int chooseFi
 	{
 		return;
 	}
-	drawFigure(halfLineNumber,lineCount,expression,chooseFigure,topBottomFlag);
+	drawFigure(halfLineNumber,lineCount,expression,chooseFigure);
 }
 
 void drawSpacebar()
@@ -126,11 +118,13 @@ void drawLetter(char* expression)
 }
 
 // 마름모
-void drawRhombus(int halfLineNumber,int lineCount, char* expression, int chooseFigure,int topBottomFlag)
+void drawRhombus(int input,int lineCount, char* expression, int chooseFigure)
 {
-	if(topBottomFlag == TOP)
+	// 가장 긴 변이 짝수 일 경우
+	input/2
+	if(input%2 == 0)
 	{
-	        // 공백은 점진적으로 줄어들게 만든다
+		// 공백은 점진적으로 줄어들게 만든다
 	        for(int start=0;start < halfLineNumber-lineCount-1;start++)
 	        {
 	            drawSpacebar();
@@ -140,19 +134,22 @@ void drawRhombus(int halfLineNumber,int lineCount, char* expression, int chooseF
 	        {
 	            drawLetter(expression);
 	        }
+
+		// 공백은 점진적으로 늘어나게 만든다
+		for(int start=0;start<lineCount;start++)
+		{
+		    drawSpacebar();
+		}
+		// 별은 점진적으로 줄어들게 만든다 && 홀수개로 줄어든다
+		for(int start=0;start<halfLineNumber*2 -lineCount*2-1;start++)
+		{
+		    drawLetter(expression);
+		}
 	}
-	else if(topBottomFlag == BOTTOM)
+	// 홀수 인 경우
+	else
 	{
-	    // 공백은 점진적으로 늘어나게 만든다
-	    for(int start=0;start<lineCount;start++)
-	    {
-	        drawSpacebar();
-	    }
-	    // 별은 점진적으로 줄어들게 만든다 && 홀수개로 줄어든다
-	    for(int start=0;start<halfLineNumber*2 -lineCount*2-1;start++)
-	    {
-	        drawLetter(expression);
-	    }
+
 	}
 	printf("\n");
 	return;
