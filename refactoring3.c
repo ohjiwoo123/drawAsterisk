@@ -132,12 +132,12 @@ void drawRhombus(int halfLineNumber,int lineCount, char* expression, int chooseF
 	if(topBottomFlag == TOP)
 	{
 	        // 공백은 점진적으로 줄어들게 만든다
-	        for(int start=0;start < halfLineNumber-lineCount;start++)
+	        for(int start=0;start < halfLineNumber-lineCount+1;start++)
 	        {
 	            drawSpacebar();
 	        }
 	        // 별은 점진적으로 늘어나게 만든다 && 홀수개로 늘어난다
-	        for(int start=0; start<lineCount*2-1;start++)
+	        for(int start=0; start<lineCount*2+1;start++)
 	        {
 	            drawLetter(expression);
 	        }
@@ -167,7 +167,7 @@ void drawSandglass(int halfLineNumber,int lineCount, char* expression, int choos
 	if(topBottomFlag == TOP)
 	{
 	        // 공백은 점진적으로 늘어난다
-		for(int start=0; start<lineCount-1;start++)
+		for(int start=0; start<lineCount;start++)
 		{
 			drawSpacebar();
 			countSpacebar = countSpacebar + 1;
@@ -203,7 +203,7 @@ void drawBowtie(int halfLineNumber,int lineCount, char* expression, int chooseFi
 	if(topBottomFlag == TOP)
 	{
         	// 좌측 별, 점진적으로 늘어난다
-		for(int start=0;start<lineCount;start++)
+		for(int start=0;start<lineCount+1;start++)
 		{
 			drawLetter(expression);
 			countLetter = countLetter + 1;
